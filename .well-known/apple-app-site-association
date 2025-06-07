@@ -3,15 +3,32 @@
     "apps": [],
     "details": [
       {
-        "appID": "U2QA72Q6BP.com.monstazo.Theyday",
-        "paths": ["/records/*"]
+        "appIDs": [
+          "U2QA72Q6BP.com.monstazo.Theyday",
+          "U2QA72Q6BP.com.monstazo.Theyday.dev",
+          "U2QA72Q6BP.com.monstazo.Theyday.preview"
+        ],
+        "components": [
+          {
+            "/": "/*",
+            "comment": "모든 경로 지원"
+          }
+        ]
       }
     ]
   },
   "activitycontinuation": {
-    "apps": ["U2QA72Q6BP.com.monstazo.Theyday"]
+    "apps": [
+      "U2QA72Q6BP.com.monstazo.Theyday",
+      "U2QA72Q6BP.com.monstazo.Theyday.dev",
+      "U2QA72Q6BP.com.monstazo.Theyday.preview"
+    ]
   },
   "webcredentials": {
-    "apps": ["U2QA72Q6BP.com.monstazo.Theyday"]
+    "apps": [
+      "U2QA72Q6BP.com.monstazo.Theyday",
+      "U2QA72Q6BP.com.monstazo.Theyday.dev",
+      "U2QA72Q6BP.com.monstazo.Theyday.preview"
+    ]
   }
 }
