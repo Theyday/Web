@@ -51,7 +51,7 @@
         <div class="loading">
             <p>앱을 여는 중입니다...</p>
         </div>
-        <a href="https://apps.apple.com/app/theyday/id{APP_STORE_ID}" class="app-store-button">
+        <a href="https://apps.apple.com/kr/app/theyday/id6745937765" class="app-store-button">
             App Store에서 다운로드
         </a>
     </div>
@@ -60,8 +60,8 @@
         // 페이지 로드 즉시 실행
         window.onload = function() {
             // URL에서 scheduleId 추출
-            const pathParts = window.location.pathname.split('/');
-            const scheduleId = pathParts[pathParts.length - 1];
+            const urlParams = new URLSearchParams(window.location.search);
+            const scheduleId = urlParams.get('id');
             
             // 앱 스킴 URL 생성
             const appUrl = `theyday://schedule/${scheduleId}`;
@@ -72,7 +72,7 @@
             // 앱이 설치되어 있지 않은 경우를 대비해 타이머 설정
             setTimeout(() => {
                 // 앱스토어로 리다이렉션
-                window.location.href = 'https://apps.apple.com/app/theyday/id{APP_STORE_ID}';
+                window.location.href = 'https://apps.apple.com/kr/app/theyday/id6745937765';
             }, 1000);
         }
     </script>
