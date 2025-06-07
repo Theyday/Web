@@ -1,0 +1,80 @@
+<!-- schedule/index.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theyday - 일정 참여</title>
+    <!-- iOS 앱스토어 메타 태그 -->
+    <meta name="apple-itunes-app" content="app-id={APP_STORE_ID}">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+        }
+        .logo {
+            margin-bottom: 30px;
+        }
+        .loading {
+            margin: 20px 0;
+            color: #666;
+        }
+        .app-store-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #007AFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>TOGG</h1>
+            <h2>Theyday</h2>
+        </div>
+        <div class="loading">
+            <p>앱을 여는 중입니다...</p>
+        </div>
+        <a href="https://apps.apple.com/app/theyday/id{APP_STORE_ID}" class="app-store-button">
+            App Store에서 다운로드
+        </a>
+    </div>
+
+    <script>
+        // 페이지 로드 즉시 실행
+        window.onload = function() {
+            // URL에서 scheduleId 추출
+            const pathParts = window.location.pathname.split('/');
+            const scheduleId = pathParts[pathParts.length - 1];
+            
+            // 앱 스킴 URL 생성
+            const appUrl = `theyday://schedule/${scheduleId}`;
+            
+            // 앱으로 열기 시도
+            window.location.href = appUrl;
+            
+            // 앱이 설치되어 있지 않은 경우를 대비해 타이머 설정
+            setTimeout(() => {
+                // 앱스토어로 리다이렉션
+                window.location.href = 'https://apps.apple.com/app/theyday/id{APP_STORE_ID}';
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
