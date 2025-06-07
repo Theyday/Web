@@ -8,10 +8,10 @@
           "U2QA72Q6BP.com.monstazo.Theyday.dev",
           "U2QA72Q6BP.com.monstazo.Theyday.preview"
         ],
-        "components": [
+       "components": [
           {
-            "/": "/*",
-            "comment": "모든 경로 지원"
+            "/": "/app/*",
+            "comment": "/app/ 접두사가 있는 모든 경로 지원"
           }
         ]
       }
