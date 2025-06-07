@@ -1,0 +1,17 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "U2QA72Q6BP.com.monstazo.Theyday",
+        "paths": ["/records/*"]
+      }
+    ]
+  },
+  "activitycontinuation": {
+    "apps": ["U2QA72Q6BP.com.monstazo.Theyday"]
+  },
+  "webcredentials": {
+    "apps": ["U2QA72Q6BP.com.monstazo.Theyday"]
+  }
+}
