@@ -3,15 +3,29 @@
     "apps": [],
     "details": [
       {
-        "appIDs": [
-          "U2QA72Q6BP.com.monstazo.Theyday",
-          "U2QA72Q6BP.com.monstazo.Theyday.dev",
-          "U2QA72Q6BP.com.monstazo.Theyday.preview"
-        ],
-       "components": [
+        "appIDs": ["U2QA72Q6BP.com.monstazo.Theyday"],
+        "components": [
           {
             "/": "/app/*",
-            "comment": "/app/ 접두사가 있는 모든 경로 지원"
+            "comment": "프로덕션 앱용 경로"
+          }
+        ]
+      },
+      {
+        "appIDs": ["U2QA72Q6BP.com.monstazo.Theyday.dev"],
+        "components": [
+          {
+            "/": "/dev/app/*",
+            "comment": "개발 앱용 경로"
+          }
+        ]
+      },
+      {
+        "appIDs": ["U2QA72Q6BP.com.monstazo.Theyday.preview"],
+        "components": [
+          {
+            "/": "/preview/app/*",
+            "comment": "프리뷰 앱용 경로"
           }
         ]
       }
