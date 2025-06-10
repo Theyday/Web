@@ -1,0 +1,104 @@
+<!-- schedule/index.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theyday - 일정 참여</title>
+    <!-- iOS 앱스토어 메타 태그 -->
+    <meta name="apple-itunes-app" content="app-id=6745937765">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+        }
+        .logo {
+            margin-bottom: 30px;
+        }
+        .loading {
+            margin: 20px 0;
+            color: #666;
+        }
+        .app-store-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #007AFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h2>Theyday</h2>
+        </div>
+        <div class="loading">
+            <p>앱을 여는 중입니다...</p>
+        </div>
+        <a href="https://apps.apple.com/kr/app/theyday/id6745937765" class="app-store-button">
+            App Store에서 다운로드
+        </a>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // 현재 경로 가져오기
+            var path = window.location.pathname;
+            
+            // 경로 분석 및 스킴 결정
+            var appScheme = 'theyday';  // 기본 스킴
+            var pathAfterApp = '';
+            
+            if (path.startsWith('/dev/app/')) {
+                // /dev/app/schedule/24 -> theyday-dev://schedule/24
+                appScheme = 'theyday-dev';
+                pathAfterApp = path.substring('/dev/app/'.length);
+            } else if (path.startsWith('/preview/app/')) {
+                // /preview/app/schedule/24 -> theyday-preview://schedule/24
+                appScheme = 'theyday-preview';
+                pathAfterApp = path.substring('/preview/app/'.length);
+            } else if (path.startsWith('/app/')) {
+                // /app/schedule/24 -> theyday://schedule/24
+                appScheme = 'theyday';
+                pathAfterApp = path.substring('/app/'.length);
+            } else {
+                // 다른 경로의 경우 기본값 사용
+                pathAfterApp = path.startsWith('/') ? path.substring(1) : path;
+            }
+            
+            // 최종 앱 URL 생성
+            var appUrl = appScheme + '://' + pathAfterApp;
+            
+            // 앱스토어 fallback 타이머
+            var fallbackTimer = setTimeout(function() {
+                window.location.href = 'https://apps.apple.com/kr/app/theyday/id6745937765';
+            }, 2000);
+
+            // 앱이 열리면(브라우저가 백그라운드로 가면) 타이머 취소
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    clearTimeout(fallbackTimer);
+                }
+            });
+    
+            // 앱으로 열기 시도
+            window.location.href = appUrl;
+        }
+    </script>
+</body>
+</html>
