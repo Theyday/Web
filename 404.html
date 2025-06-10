@@ -84,13 +84,20 @@
             // 최종 앱 URL 생성
             var appUrl = appScheme + '://' + pathAfterApp;
             
+            // 앱스토어 fallback 타이머
+            var fallbackTimer = setTimeout(function() {
+                window.location.href = 'https://apps.apple.com/kr/app/theyday/id6745937765';
+            }, 2000);
+
+            // 앱이 열리면(브라우저가 백그라운드로 가면) 타이머 취소
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    clearTimeout(fallbackTimer);
+                }
+            });
+    
             // 앱으로 열기 시도
             window.location.href = appUrl;
-            
-            // 앱이 설치되어 있지 않은 경우를 대비해 타이머 설정 (앱스토어 fallback)
-            setTimeout(function() {
-                window.location.href = 'https://apps.apple.com/kr/app/theyday/id6745937765';
-            }, 2000); // 1.2초 후 앱스토어로 이동
         }
     </script>
 </body>
