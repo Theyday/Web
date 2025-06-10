@@ -57,11 +57,41 @@
     </div>
 
     <script>
-        // 페이지 로드 즉시 실행
         window.onload = function() {
-            // URL에서 scheduleId 추출
+            // 현재 경로 가져오기
             var path = window.location.pathname;
-            console.log(path);
+            
+            // 경로 분석 및 스킴 결정
+            var appScheme = 'theyday';  // 기본 스킴
+            var pathAfterApp = '';
+            
+            if (path.startsWith('/dev/app/')) {
+                // /dev/app/schedule/24 -> theyday-dev://schedule/24
+                appScheme = 'theyday-dev';
+                pathAfterApp = path.substring('/dev/app/'.length);
+            } else if (path.startsWith('/preview/app/')) {
+                // /preview/app/schedule/24 -> theyday-preview://schedule/24
+                appScheme = 'theyday-preview';
+                pathAfterApp = path.substring('/preview/app/'.length);
+            } else if (path.startsWith('/app/')) {
+                // /app/schedule/24 -> theyday://schedule/24
+                appScheme = 'theyday';
+                pathAfterApp = path.substring('/app/'.length);
+            } else {
+                // 다른 경로의 경우 기본값 사용
+                pathAfterApp = path.startsWith('/') ? path.substring(1) : path;
+            }
+            
+            // 최종 앱 URL 생성
+            var appUrl = appScheme + '://' + pathAfterApp;
+            
+            // 앱으로 열기 시도
+            window.location.href = appUrl;
+            
+            // 앱이 설치되어 있지 않은 경우를 대비해 타이머 설정 (앱스토어 fallback)
+            setTimeout(function() {
+                window.location.href = 'https://apps.apple.com/kr/app/theyday/id6745937765';
+            }, 1200); // 1.2초 후 앱스토어로 이동
         }
     </script>
 </body>
