@@ -85,7 +85,7 @@
                 pathAfterApp = path.substring('/app/'.length);
             } else {
                 // 다른 경로의 경우 기본값 사용
-                pathAfterApp = path.startsWith('/') ? path.substring(1) : path;
+                pathAfterApp = path.substring('/aos/app/'.length);
             }
             
             // 최종 앱 URL 생성
