@@ -68,7 +68,7 @@
             var path = window.location.pathname;
             
             // 경로 분석 및 스킴 결정
-            var appScheme = 'myapp';  // 기본 스킴
+            var appScheme = 'theyday';  // 기본 스킴
             var pathAfterApp = '';
             
             if (path.startsWith('/dev/app/')) {
@@ -85,7 +85,7 @@
                 pathAfterApp = path.substring('/app/'.length);
             } else {
                 // 다른 경로의 경우 기본값 사용
-                pathAfterApp = path.substring('/aos/app/'.length);
+                pathAfterApp = path.startsWith('/') ? path.substring(1) : path;
             }
             
             // 최종 앱 URL 생성
@@ -99,7 +99,7 @@
                 storeLink.href = 'https://apps.apple.com/kr/app/theyday/id6745937765';
                 storeLink.textContent = 'App Store에서 다운로드';
             } else {
-                storeLink.href = 'https://theyday.app';
+                storeLink.href = 'https://togg.kr';
                 storeLink.textContent = 'Theyday 웹사이트로 이동';
             }
             
