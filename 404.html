@@ -58,11 +58,8 @@
     <script>
         window.onload = function() {
             var ua = navigator.userAgent || navigator.vendor || window.opera;
-            console.log(ua);
             var isAndroid = /android/i.test(ua);
-            console.log(isAndroid);
             var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
-            console.log(isIOS);
             
             // 현재 경로 가져오기
             var path = window.location.pathname;
