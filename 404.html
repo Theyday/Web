@@ -50,13 +50,17 @@
         <div class="loading">
             <p>앱을 여는 중입니다...</p>
         </div>
-        <a href="https://apps.apple.com/kr/app/theyday/id6745937765" class="app-store-button">
+        <a id="store-link" href="https://apps.apple.com/kr/app/theyday/id6745937765" class="app-store-button">
             App Store에서 다운로드
         </a>
     </div>
 
     <script>
         window.onload = function() {
+            var ua = navigator.userAgent || navigator.vendor || window.opera;
+            var isAndroid = /android/i.test(ua);
+            var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+            
             // 현재 경로 가져오기
             var path = window.location.pathname;
             
@@ -66,7 +70,7 @@
             
             if (path.startsWith('/dev/app/')) {
                 // /dev/app/schedule/24 -> theyday-dev://schedule/24
-                appScheme = 'theyday-dev';
+                appScheme = 'myapp';
                 pathAfterApp = path.substring('/dev/app/'.length);
             } else if (path.startsWith('/preview/app/')) {
                 // /preview/app/schedule/24 -> theyday-preview://schedule/24
@@ -83,22 +87,37 @@
             
             // 최종 앱 URL 생성
             var appUrl = appScheme + '://' + pathAfterApp;
-            
-            // 앱스토어 fallback 타이머
-            var fallbackTimer = setTimeout(function() {
-                window.location.href = 'https://apps.apple.com/kr/app/theyday/id6745937765';
-            }, 2000);
 
-            // 앱이 열리면(브라우저가 백그라운드로 가면) 타이머 취소
-            document.addEventListener('visibilitychange', function() {
-                if (document.hidden) {
-                    clearTimeout(fallbackTimer);
-                }
-            });
-    
-            // 앱으로 열기 시도
-            window.location.href = appUrl;
-        }
+            var storeLink = document.getElementById('store-link');
+            if (isAndroid) {
+                storeLink.href = 'https://play.google.com/store/apps/details?id=com.monstazo.Theyday';
+                storeLink.textContent = 'Google Play에서 다운로드';
+            } else if (isIOS) {
+                storeLink.href = 'https://apps.apple.com/kr/app/theyday/id6745937765';
+                storeLink.textContent = 'App Store에서 다운로드';
+            } else {
+                storeLink.href = 'https://theyday.app';
+                storeLink.textContent = 'Theyday 웹사이트로 이동';
+            }
+            
+            if (isIOS || isAndroid) {
+                var fallbackUrl = isIOS
+                    ? 'https://apps.apple.com/kr/app/theyday/id6745937765'
+                    : 'https://play.google.com/store/apps/details?id=com.monstazo.Theyday';
+        
+                var fallbackTimer = setTimeout(function() {
+                    window.location.href = fallbackUrl;
+                }, 1500);
+        
+                document.addEventListener('visibilitychange', function() {
+                    if (document.hidden) {
+                        clearTimeout(fallbackTimer);
+                    }
+                });
+        
+                // 앱으로 열기 시도
+                window.location.href = appUrl;
+            }
     </script>
 </body>
 </html>
