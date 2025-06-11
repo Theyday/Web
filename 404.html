@@ -58,19 +58,22 @@
     <script>
         window.onload = function() {
             var ua = navigator.userAgent || navigator.vendor || window.opera;
+            console.log(ua);
             var isAndroid = /android/i.test(ua);
+            console.log(isAndroid);
             var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+            console.log(isIOS);
             
             // 현재 경로 가져오기
             var path = window.location.pathname;
             
             // 경로 분석 및 스킴 결정
-            var appScheme = 'theyday';  // 기본 스킴
+            var appScheme = 'myapp';  // 기본 스킴
             var pathAfterApp = '';
             
             if (path.startsWith('/dev/app/')) {
                 // /dev/app/schedule/24 -> theyday-dev://schedule/24
-                appScheme = 'myapp';
+                appScheme = 'theyday-dev';
                 pathAfterApp = path.substring('/dev/app/'.length);
             } else if (path.startsWith('/preview/app/')) {
                 // /preview/app/schedule/24 -> theyday-preview://schedule/24
