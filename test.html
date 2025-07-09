@@ -1,0 +1,129 @@
+<!-- schedule/index.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta property="og:title" content="마리오파티 컴퓨터들 참교육하기" />
+    <meta property="og:description" content="Theyday에서 보낸 일정 초대예요!" />
+    <meta property="og:image" content="https://store.nintendo.co.kr/media/catalog/product/cache/3be328691086628caca32d01ffcc430a/7/c/7cdd30ff17c6e3c0a212a5cc4a45dcffecdc1c0f8c84381497f785d876a6d31e.jpg" /> 
+    <meta property="og:url" content="https://togg.kr/app/schedule/80" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theyday - 일정 참여</title>
+    <!-- iOS 앱스토어 메타 태그 -->
+    <meta name="apple-itunes-app" content="app-id=6745937765">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+        }
+        .logo {
+            margin-bottom: 30px;
+        }
+        .loading {
+            margin: 20px 0;
+            color: #666;
+        }
+        .app-store-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #007AFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h2>Theyday</h2>
+        </div>
+        <div class="loading">
+            <p>앱을 여는 중입니다...</p>
+        </div>
+        <a id="store-link" href="https://apps.apple.com/kr/app/theyday/id6745937765" class="app-store-button">
+            App Store에서 다운로드
+        </a>
+    </div>
+
+    <script>
+        window.onload = function() {
+            var ua = navigator.userAgent || navigator.vendor || window.opera;
+            var isAndroid = /android/i.test(ua);
+            var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+            
+            // 현재 경로 가져오기
+            var path = window.location.pathname;
+            
+            // 경로 분석 및 스킴 결정
+            var appScheme = 'theyday';  // 기본 스킴
+            var pathAfterApp = '';
+            
+            if (path.startsWith('/dev/app/')) {
+                // /dev/app/schedule/24 -> theyday-dev://schedule/24
+                appScheme = 'theyday-dev';
+                pathAfterApp = path.substring('/dev/app/'.length);
+            } else if (path.startsWith('/preview/app/')) {
+                // /preview/app/schedule/24 -> theyday-preview://schedule/24
+                appScheme = 'theyday-preview';
+                pathAfterApp = path.substring('/preview/app/'.length);
+            } else if (path.startsWith('/app/')) {
+                // /app/schedule/24 -> theyday://schedule/24
+                appScheme = 'theyday';
+                pathAfterApp = path.substring('/app/'.length);
+            } else {
+                // 다른 경로의 경우 기본값 사용
+                pathAfterApp = path.startsWith('/') ? path.substring(1) : path;
+            }
+            
+            // 최종 앱 URL 생성
+            var appUrl = appScheme + '://' + pathAfterApp;
+
+            var storeLink = document.getElementById('store-link');
+            if (isAndroid) {
+                storeLink.href = 'https://play.google.com/store/apps/details?id=com.monstazo.Theyday';
+                storeLink.textContent = 'Google Play에서 다운로드';
+            } else if (isIOS) {
+                storeLink.href = 'https://apps.apple.com/kr/app/theyday/id6745937765';
+                storeLink.textContent = 'App Store에서 다운로드';
+            } else {
+                storeLink.href = 'https://togg.kr';
+                storeLink.textContent = 'Theyday 웹사이트로 이동';
+            }
+            
+            if (isIOS || isAndroid) {
+                var fallbackUrl = isIOS
+                    ? 'https://apps.apple.com/kr/app/theyday/id6745937765'
+                    : 'https://play.google.com/store/apps/details?id=com.monstazo.Theyday';
+        
+                var fallbackTimer = setTimeout(function() {
+                    window.location.href = fallbackUrl;
+                }, 1500);
+        
+                document.addEventListener('visibilitychange', function() {
+                    if (document.hidden) {
+                        clearTimeout(fallbackTimer);
+                    }
+                });
+        
+                // 앱으로 열기 시도
+                window.location.href = appUrl;
+                }
+        }
+    </script>
+</body>
+</html>
